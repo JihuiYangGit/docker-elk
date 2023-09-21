@@ -1,0 +1,19 @@
+name: fabricmanager blacklist rule
+type: blacklist
+index: logs-*
+# (Required)
+# A list of Elasticsearch filters used for find events
+# These filters are joined with AND and nested in a filtered query
+# For more info: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
+filter:
+- term:
+    some_field: "some_value"
+
+blacklist:
+  - "fatal"
+  - "ERROR"
+compare_key: Query
+
+alert:
+  - command
+command: ["/bin/send_alert", "--username", "%(username)s"]

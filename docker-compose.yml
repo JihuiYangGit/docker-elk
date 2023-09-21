@@ -106,6 +106,17 @@ services:
       - elasticsearch
     restart: unless-stopped
 
+  elastalert:
+    image: jertel/elastalert2
+    volumes: 
+      - ./elastalert/elastalert.yaml:/opt/elastalert/config.yaml
+      - ./elastalert/rules:/opt/elastalert/rules
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: always
+
 networks:
   elk:
     driver: bridge
