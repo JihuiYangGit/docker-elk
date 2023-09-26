@@ -18,6 +18,7 @@ users_passwords=(
 	[heartbeat_internal]="${HEARTBEAT_INTERNAL_PASSWORD:-}"
 	[monitoring_internal]="${MONITORING_INTERNAL_PASSWORD:-}"
 	[beats_system]="${BEATS_SYSTEM_PASSWORD=:-}"
+	[elastalert_internal]="${ELASTALERT_INTERNAL_PASSWORD=:-}"
 )
 
 declare -A users_roles

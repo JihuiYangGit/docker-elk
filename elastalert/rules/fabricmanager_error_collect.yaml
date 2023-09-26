@@ -5,15 +5,16 @@ index: logs-*
 # A list of Elasticsearch filters used for find events
 # These filters are joined with AND and nested in a filtered query
 # For more info: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
-filter:
-- term:
-    some_field: "some_value"
+#filter:
+#- term:
+#    _version: "1"
 
 blacklist:
-  - "fatal"
   - "ERROR"
-compare_key: Query
+  - "Fatal"
+compare_key: "message"
 
 alert:
   - command
-command: ["/bin/send_alert", "--username", "%(username)s"]
+
+command: ["/bin/curl", "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=7fc7542b-3133-4931-aa3f-b769e1fa0435", "-H", "Content-Type: application/json", "-d", "{\"msgtype\":\"text\",\"text\":{\"content\":\"日志中捕获关键词 ERROR\"}}"]
