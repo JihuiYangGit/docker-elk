@@ -1,20 +1,21 @@
 name: fabricmanager blacklist rule
-type: blacklist
+type: frequency
 index: logs-*
-# (Required)
-# A list of Elasticsearch filters used for find events
-# These filters are joined with AND and nested in a filtered query
-# For more info: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
-#filter:
-#- term:
-#    _version: "1"
 
-blacklist:
-  - "ERROR"
-  - "Fatal"
-compare_key: "message"
+filter:
+- term:
+    "message": "fatal"
 
-alert:
-  - command
+num_events: 5
 
-command: ["/bin/curl", "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=7fc7542b-3133-4931-aa3f-b769e1fa0435", "-H", "Content-Type: application/json", "-d", "{\"msgtype\":\"text\",\"text\":{\"content\":\"日志中捕获关键词 ERROR\"}}"]
+timeframe:
+  minutes: 1
+
+alert: post2
+http_post2_url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=7fc7542b-3133-4931-aa3f-b769e1fa0435"
+http_post2_payload:
+  msgtype: "text"
+  text:
+    content: "日志 fatal 关键词出现率过高"
+http_post2_headers:
+  Content-Type: application/json

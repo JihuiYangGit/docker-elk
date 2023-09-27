@@ -10,4 +10,7 @@ network.host: 0.0.0.0
 #
 xpack.license.self_generated.type: basic
 xpack.security.enabled: true
-http.cors.allow-headers: Authorization,X-Requested-With,Content-Length,Content-Type
+
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.cors.allow-headers: "*"
